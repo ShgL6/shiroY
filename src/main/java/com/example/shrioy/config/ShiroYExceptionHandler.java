@@ -12,7 +12,7 @@ public class ShiroYExceptionHandler {
     @ExceptionHandler(value = {AuthorizationException.class, AuthenticationException.class})
     @ResponseBody
     public String handleException(Throwable e){
-        System.out.println("===================================");
+        System.out.println("=============== blocked ================");
         if(e instanceof AuthenticationException){
             return "You haven't pass the authentication !!!";
         }

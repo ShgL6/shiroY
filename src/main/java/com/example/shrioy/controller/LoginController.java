@@ -4,6 +4,7 @@ import com.example.shrioy.service.LoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -14,13 +15,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class LoginController {
 
-    public static final String NEXT_PATH = "/deepin";
+    public static final String NEXT_PATH = "/view";
 
     @Autowired
     private LoginService loginService;
+
+    @GetMapping("/")
+    @ResponseBody
+    public String index(){
+        return "you are at index";
+    }
 
     @GetMapping("/login")
     public String login(@RequestParam("username") String username,
@@ -33,9 +42,21 @@ public class LoginController {
         return "redirect:" + NEXT_PATH;
     }
 
+
+    @GetMapping("/view")
+    @ResponseBody
+    public String view(){
+        return "you are viewing";
+    }
+
+    @GetMapping("/modify")
+    @ResponseBody
+    public String modify(){
+        return "you are modifying";
+    }
+
     /**
      * 测试基于注解的权限控制
-     * @return
      */
     @GetMapping("/search")
     @RequiresRoles(value = {"admin"})
@@ -61,6 +82,13 @@ public class LoginController {
     public String deepin(){
         return loginService.deepin();
     }
+
+    @GetMapping("/fail")
+    @ResponseBody
+    public String fail() throws Exception {
+        throw new AuthenticationException();
+    }
+
 
 
 }

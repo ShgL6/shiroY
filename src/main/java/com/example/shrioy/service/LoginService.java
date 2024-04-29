@@ -9,7 +9,6 @@ public class LoginService {
 
     /**
      * 测试基于注解的细粒度权限控制
-     * @return
      */
     @RequiresPermissions(value = {"deepin"})
     public String deepin(){
