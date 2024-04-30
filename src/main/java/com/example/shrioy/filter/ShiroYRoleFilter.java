@@ -49,12 +49,12 @@ public class ShiroYRoleFilter extends AccessControlFilter {
          * note:
          * 这种直接抛出异常的方式是错误的，因为在 @ControllerAdvice 只会捕获 @Controller 中调用方法抛出的异常。
          * 而过滤器中的异常则是早于 请求到达 @Controller 被抛出的，所以此异常不会被 spring 捕获
-         * 正确的做法是不急于抛出异常，而是将该请求转移到 /error，再在 /error 对应的控制器方法中抛出异常。
+         * 正确的做法是 response 返回错误信息
          */
         // 直接抛出异常，全局统一处理 [×]
         // throw new AuthorizationException();
 
-        WebUtils.issueRedirect(request, response, "/fail");
+        response.getWriter().println("You have no authorization to that !!!");
         return false;
     }
 }

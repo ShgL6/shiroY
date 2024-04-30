@@ -42,13 +42,18 @@ public class LoginController {
         return "redirect:" + NEXT_PATH;
     }
 
-
+    /**
+     * 测试基于过滤器的权限控制
+     */
     @GetMapping("/view")
     @ResponseBody
     public String view(){
         return "you are viewing";
     }
 
+    /**
+     * 测试基于过滤器的权限控制
+     */
     @GetMapping("/modify")
     @ResponseBody
     public String modify(){
@@ -77,18 +82,14 @@ public class LoginController {
         return returnSb.toString();
     }
 
+    /**
+     * 测试基于注解的权限控制 - 注解在 loginService.deepin() 上
+     */
     @GetMapping("/deepin")
     @ResponseBody
     public String deepin(){
         return loginService.deepin();
     }
-
-    @GetMapping("/fail")
-    @ResponseBody
-    public String fail() throws Exception {
-        throw new AuthenticationException();
-    }
-
 
 
 }
