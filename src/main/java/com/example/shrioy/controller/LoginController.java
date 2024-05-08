@@ -32,8 +32,8 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("pass") String pass){
+    public String login(@RequestParam("u") String username,
+                        @RequestParam("p") String pass){
         Subject userSubject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, pass);
 
@@ -74,8 +74,10 @@ public class LoginController {
 
         session.getAttributeKeys().forEach(
                 key -> {
-                    returnSb.append(key + ": " + session.getAttribute(key).toString());
-                    returnSb.append("<br />");
+                    returnSb.append(key)
+                            .append(": ")
+                            .append(session.getAttribute(key).toString())
+                            .append("<br />");
                 }
         );
 

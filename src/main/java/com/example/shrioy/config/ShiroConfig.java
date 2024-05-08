@@ -76,15 +76,10 @@ public class ShiroConfig {
         map.put("/login", "anon");      // 允许匿名访问
         map.put("/", "anon");          // 允许匿名访问
 
-        // 等效于本代码块下的语句
-//        map.put("/logout", "syauthc,logout");   // 需要登录才能退出，默认重定向到 / 路径
-//        map.put("/view", "syauthc,syrole[user,admin]");        // 需要登录,且指定角色才能访问（或）
-//        map.put("/modify", "syauthc,syrole[admin]");        // 需要登录,且指定角色才能访问
+        map.put("/logout", "syauthc,logout");   // 需要登录才能退出，默认重定向到 / 路径
+        map.put("/view", "syauthc,syrole[user,admin]");        // 需要登录,且指定角色才能访问（或）
+        map.put("/modify", "syauthc,syrole[admin]");        // 需要登录,且指定角色才能访问
 
-        map.put("/logout", "logout");   // 需要登录才能退出，默认重定向到 / 路径
-        map.put("/view", "syrole[user,admin]");        // 需要登录,且指定角色才能访问（或）
-        map.put("/modify", "syrole[admin]");        // 需要登录,且指定角色才能访问
-        map.put("/**", "syauthc");  // 需要登录才能访问
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
 

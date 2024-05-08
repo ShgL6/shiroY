@@ -29,8 +29,12 @@ public class ShiroYRoleFilter extends AccessControlFilter {
         }
 
         List<String> roles = CollectionUtils.asList(rolesArray);
-        System.out.println("========= need at least one role in roles =========");
-        roles.forEach(System.out::println);
+        System.out.println("========== ShiroYRoleFilter =============");
+        System.out.print("need at least one role in roles[ ");
+        roles.forEach(role -> {
+            System.out.print(role+" ");
+        });
+        System.out.println("]");
 
         for (boolean b : subject.hasRoles(roles)) {
             isAccessAllowed = isAccessAllowed || b;

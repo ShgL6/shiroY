@@ -11,7 +11,7 @@ public class ShiroYAuthCFilter extends AccessControlFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         Subject subject = getSubject(request, response);
-
+        System.out.println("========== ShiroYAuthCFilter =============");
         return subject.isAuthenticated();
     }
 

@@ -3,9 +3,9 @@ package com.example.shrioy.config;
 import com.example.shrioy.entity.*;
 import com.example.shrioy.mapper.*;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,15 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private RolePermissionsMapper rolePermissionsMapper;
 
+
+    /**
+     *  构造方法中设置 CacheManager
+     */
+    public UserRealm() {
+        super();
+        setCacheManager(new MemoryConstrainedCacheManager());
+    }
+
     /**
      * 提供认证所需要的信息：如用户名，密码，加密盐等
      */
@@ -42,6 +51,7 @@ public class UserRealm extends AuthorizingRealm {
         if(user == null){
             throw new AuthenticationException();
         }
+        System.out.println("============== UserRealm: do get authC info ==============");
         return new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),getName());
     }
 
@@ -70,6 +80,8 @@ public class UserRealm extends AuthorizingRealm {
 
         info.addRoles(roleList);    // 添加角色
         info.addStringPermissions(permissionList);  // 添加权限
+
+        System.out.println("============== UserRealm: do get authZ info ==============");
 
         return info;
     }

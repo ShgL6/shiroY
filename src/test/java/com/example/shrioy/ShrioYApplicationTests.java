@@ -79,4 +79,5 @@ class ShrioYApplicationTests {
         List<RolePermissions> rolePermissions = rolePermissionsMapper.selectList(queryWrapper);
         rolePermissions.forEach(System.out::println);
     }
+
 }
